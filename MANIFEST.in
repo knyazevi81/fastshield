@@ -1,0 +1,2 @@
+include fastshield/models/predictor.joblib
+include fastshield/models/pt_predictor.joblib
