@@ -8,7 +8,7 @@ def readme():
 
 setup(
   name='fastshield',
-  version='0.0.2',
+  version='0.0.3',
   author='ilpdakz',
   author_email='khasanknyazev81@gmail.com',
   description='library to protect your fastapi applications',
