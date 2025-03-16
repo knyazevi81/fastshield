@@ -8,7 +8,7 @@ def readme():
 
 setup(
   name='fastshield',
-  version='0.0.3',
+  version='0.0.4',
   author='ilpdakz',
   author_email='khasanknyazev81@gmail.com',
   description='library to protect your fastapi applications',
@@ -16,6 +16,9 @@ setup(
   long_description_content_type='text/markdown',
   url='https://github.com/knyazevi81/fastshield',
   packages=find_packages(),
+  package_data={
+        'fastshield': ['models/*.joblib'],
+    },
   install_requires=[
     'requests>=2.25.1',
     'scikit-learn==1.5.1'
