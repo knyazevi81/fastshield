@@ -21,7 +21,7 @@
 <div class="termy">
 
 ```console
-$ pip install fastshield
+pip install fastshield
 ```
 </div>
 
@@ -30,11 +30,13 @@ $ pip install fastshield
 * code with a simple `vulnerability`
 ```Python
 from fastapi import FastAPI
-from fastshield.fshield import FSMiddleware
+from fastapi.responses import HTMLResponse
+
+from fastshield.middleware import FSHackMiddleware
 
 app = FastAPI()
 
-app.add_middleware(FSMiddleware) # security middleware
+app.add_middleware(FSHackMiddleware) # security middleware
 
 @app.get("/redirect_endpoint")
 def read_root(redirect_url: str):
