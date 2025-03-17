@@ -1,18 +1,25 @@
-import urllib.parse
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
+from fastapi import FastAPI
 
-import urllib
-import json
+import urllib.parse
 
 from fastshield.request import BaseRequest
 from fastshield.classifire.classifire import ThreatClassifier
 
+from fastshield.exceptions.hackexceptions import HackException
+
 
 class FSHackMiddleware(BaseHTTPMiddleware):
-    def __init__(self, app) -> None:
+    def __init__(
+            self, 
+            app: FastAPI,
+            allow_signature: bool = True
+        # ADD allow_exceptions 404 json or redirect to 404.html
+        ) -> None:
         super().__init__(app)
+        self.allow_signature: bool = allow_signature
         self.origin: str = ""
         self.host: str = ""
         self.url: str = ""
@@ -21,7 +28,8 @@ class FSHackMiddleware(BaseHTTPMiddleware):
         self.headers: dict = {}
         self.method: str = ""
 
-    def __singanture_alalyse(self):
+
+    def __singanture_analyse(self,) -> None:
         ...
 
     def __classfy(self) -> BaseRequest:
@@ -45,15 +53,32 @@ class FSHackMiddleware(BaseHTTPMiddleware):
             self.url = urllib.parse.unquote(str(request.url))
 
             self.base_url = urllib.parse.unquote(str(request.base_url))
-            self.cut_url = urllib.parse.unquote(self.url.replace(self.base_url, "")) # test?redirect_url=<script>alert(1)</script>
+            
+            # test?redirect_url=<script>alert(1)</script>
+            self.cut_url = urllib.parse.unquote(self.url.replace(self.base_url, "")) 
             self.headers = dict(request.headers)
             self.method = str(request.method)
 
-            req = self.__classfy()
-            print(req.threats)
+            if self.allow_signature:
+                ...
+
+            classifyed_request = self.__classfy()
+            
+            if classifyed_request != 0 and "valid" not in classifyed_request.threats:
+                raise HackException()
 
             response = await call_next(request)
             return response
         except Exception as e:
             response = await call_next(request)
             return response
+        
+
+class FSCountryMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        return await super().dispatch(request, call_next)
+    
+
+class FSBotMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        return await super().dispatch(request, call_next)
