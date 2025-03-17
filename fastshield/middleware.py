@@ -1,6 +1,6 @@
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
-from starlette.responses import Response
+from starlette.responses import Response, JSONResponse
 from fastapi import FastAPI
 
 import urllib.parse
@@ -63,9 +63,8 @@ class FSHackMiddleware(BaseHTTPMiddleware):
                 ...
 
             classifyed_request = self.__classfy()
-            
-            if classifyed_request != 0 and "valid" not in classifyed_request.threats:
-                raise HackException()
+            if not "valid" in classifyed_request.threats:
+                return JSONResponse(status_code=403, content={"detail": "forbidden"})
 
             response = await call_next(request)
             return response
