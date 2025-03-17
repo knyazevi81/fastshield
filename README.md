@@ -55,5 +55,5 @@ def read_root(redirect_url: str):
         </html>
         """
     )
-
+ 
 ```
