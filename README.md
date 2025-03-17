@@ -29,16 +29,14 @@ $ pip install fastshield
 ## Example
 * code with a simple `vulnerability`
 ```Python
-from typing import Union
-
 from fastapi import FastAPI
 from fastshield.fshield import FSMiddleware
 
 app = FastAPI()
 
-app.add_middleware(FSMiddleware)
+app.add_middleware(FSMiddleware) # security middleware
 
-@router.get("/redirect_endpoint")
+@app.get("/redirect_endpoint")
 def read_root(redirect_url: str):
     return HTMLResponse(
         f"""
