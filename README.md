@@ -57,7 +57,6 @@ def read_root(redirect_url: str):
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>XSS Hack Test</title>
         </head>
         <body>
@@ -82,20 +81,6 @@ Restrict access to your application based on geographic location.
 
 ### 4. **Bot Protection**
 Detect and block malicious bots using advanced heuristics.
-
----
-
-## 📖 Documentation
-For detailed documentation, visit the [FastShield Documentation](https://github.com/knyazevi81/fastshield/wiki).
-
----
-
-## 🧪 Testing
-Run the following command to execute tests:
-
-```console
-pytest
-```
 
 ---
 
