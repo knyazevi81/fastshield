@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="media/logo-goriz.png" alt="FastShield" width="400">
+  <img src="media/logo-goriz.png" alt="FastShield">
 </p>
 <p align="center">
     <em>FastShield - Web Application Firewall, easy to integrate, fast to deploy.</em>
